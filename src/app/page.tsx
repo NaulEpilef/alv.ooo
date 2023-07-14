@@ -8,11 +8,7 @@ import api from '@/configs/api';
 
 const Home = () => {
   const [listTargets, setListTargets] = useState<ITargetWithUser[]>([]);
-  const [username, setUsername] = useState<string>(
-    localStorage.getItem("token") != null
-    ? jwtDecode<IUser>(localStorage.getItem("token") as string).username
-    : "Acessar"
-  );
+  const [username, setUsername] = useState<string>("Acessar");
 
   const getUsername = () => {
     const token = localStorage.getItem("token");
