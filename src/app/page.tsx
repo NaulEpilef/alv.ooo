@@ -1,5 +1,8 @@
 "use client"
 import { useEffect, useState } from 'react'
+import Image from 'next/image';
+// import logo from "@/../public/logo.svg";
+import logo from "@/components/svgs/logo.svg";
 import jwtDecode from 'jwt-decode';
 
 import { IUser } from '@/interfaces/user'
@@ -29,9 +32,16 @@ const Home = () => {
     });
   }, []);
 
+  {/* <main className="flex min-h-screen flex-col items-center justify-between p-24"> */}
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      {
+    <div className="grid grid-areas-layout grid-cols-layout grid-rows-layout h-screen">
+      <header className='grid-in-header bg-purple-400 select-none'>
+        {/* <Image src="/logo.svg" alt='alvo logo' width={100} height={100} className='pointer-events-none'/> */}
+        HEADER
+      </header>
+      <nav className='grid-in-nav bg-blue-400'>NAV</nav>
+      <main className='grid-in-main bg-yellow-300'>MAIN</main>
+      {/* {
         username == "Acessar"
         ? (
           <>
@@ -60,8 +70,8 @@ const Home = () => {
           )
         })}
         <li></li>
-      </ul>
-    </main>
+      </ul> */}
+    </div>
   )
 }
 

@@ -12,7 +12,21 @@ module.exports = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      gridTemplateAreas: {
+        'layout': [
+          'header header',
+          'nav    main'
+        ]
+      },
+      gridTemplateColumns: {
+        'layout': '25% 75%',
+      },
+      gridTemplateRows: {
+        'layout': '10% 90% auto',
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@savvywombat/tailwindcss-grid-areas')
+  ],
 }
