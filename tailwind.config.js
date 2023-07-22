@@ -16,10 +16,15 @@ module.exports = {
         'layout': [
           'header header',
           'nav    main'
+        ],
+        'layout-no-nav': [
+          'header',
+          'main'
         ]
       },
       gridTemplateColumns: {
         'layout': '25% 75%',
+        'layout-no-nav': '100%'
       },
       gridTemplateRows: {
         'layout': '10% 90% auto',
