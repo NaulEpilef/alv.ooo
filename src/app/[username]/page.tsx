@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import api from "@/configs/api";
 import { ITargetWithUser } from "@/interfaces/target";
 
-const UserRoute = ({ params }: { params: { username: string } }) => {
+const Profile = ({ params }: { params: { username: string } }) => {
   const [userTargets, setUserTargets] = useState<ITargetWithUser[]>([]);
 
   useEffect(() => {
@@ -55,4 +55,4 @@ const UserRoute = ({ params }: { params: { username: string } }) => {
   );
 }
 
-export default UserRoute
+export default Profile
