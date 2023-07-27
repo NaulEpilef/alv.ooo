@@ -1,7 +1,8 @@
 "use client"
 import { FormEvent, useEffect, useState } from "react";
 import api from "@/configs/api";
-import { ITargetWithUser } from "@/interfaces/target";
+import { ITargetEdit, ITargetToggleComplete, ITargetWithUser } from "@/interfaces/target";
+import TargetList from "@/components/TargetList/TargetList";
 
 const Profile = ({ params }: { params: { username: string } }) => {
   const [userTargets, setUserTargets] = useState<ITargetWithUser[]>([]);
@@ -25,8 +26,22 @@ const Profile = ({ params }: { params: { username: string } }) => {
     });
   }
 
-  const handleCompleteTarget = (isCompleted: string) => {
-    console.log(isCompleted)
+  const handleCompleteTarget = ({ id, isCompleted }: ITargetToggleComplete) => {
+    const token = localStorage.getItem("token");
+    const headers = {
+      Authorization: `Bearer ${token}`
+    };
+
+    const data = {
+      targetId: id,
+      isCompleted
+    }
+
+    api.put(`/target/toggle`, data, { headers }).then((data) => {
+      listAllTargets();
+    }).catch((err) => {
+      console.error(err);
+    });
   }
 
   const handleCreateTarget = (event: FormEvent) => {
@@ -51,6 +66,27 @@ const Profile = ({ params }: { params: { username: string } }) => {
     });
   }
 
+  const handleEditTarget = ({event, id, isPrivate, title}: ITargetEdit) => {
+    event.preventDefault();
+    
+    const token = localStorage.getItem("token");
+    const headers = {
+      Authorization: `Bearer ${token}`
+    };
+
+    const data = {
+      targetId: id,
+      title,
+      isPrivate
+    }
+
+    api.put(`/target/edit`, data, { headers }).then((data) => {
+      listAllTargets();
+    }).catch((err) => {
+      console.error(err);
+    });
+  }
+
   return (
     <>
       <div className="grid grid-areas-layout grid-cols-layout grid-rows-layout h-screen">
@@ -67,20 +103,17 @@ const Profile = ({ params }: { params: { username: string } }) => {
           <ul className='h-full w-full p-10'>
             {userTargets.length > 0 && userTargets.map(target => {
               return (
-                <li key={target.id} className={`${target.isPrivate ? `bg-red-300 hover:bg-red-400` : `bg-slate-300 hover:bg-slate-400`} shadow-lg my-1 p-2 rounded-md border-2 border-gray-500 flex items-center`}>
-                  <input type="checkbox" name="isCompleted" id={target.id} checked={target.isCompleted} onChange={event => handleCompleteTarget(event.target.value)} />
-                  <span className="ml-2">
-                    {target.title} | {target.isCompleted.toString()}
-                  </span>
-                </li>
+                <TargetList key={target.id} target={target} handleCompleteTarget={handleCompleteTarget} handleEditTarget={handleEditTarget}/>
               )
             })}
+            <br />
+            <br />
             <li className={`bg-slate-300 hover:bg-slate-400 shadow-lg my-1 p-2 rounded-md border-2 border-gray-500 flex items-center`}>
               <form onSubmit={handleCreateTarget}>
                 <input type="text" name='title' value={title} onChange={event => setTitle(event.target.value)}/>
                 <input type="checkbox" name="isPrivate" checked={isPrivate} onChange={event => setIsPrivate(event.target.checked)} />
                 { isPrivate ? <span className="bg-yellow-600">Privado</span> : <span className="bg-green-600">Publico</span> }
-                <button type='button' onClick={handleCreateTarget}>Enviar</button>
+                <button type='submit'>Enviar</button>
               </form>
             </li>
           </ul>

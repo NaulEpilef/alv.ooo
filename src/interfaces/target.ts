@@ -1,3 +1,4 @@
+import { FormEvent } from "react";
 import { IUserOnTarget } from "./user";
 
 export interface ITarget {
@@ -15,4 +16,16 @@ export interface ITargetWithUser {
   isCompleted: boolean;
   isPrivate: boolean;
   user: IUserOnTarget  
+}
+
+export interface ITargetEdit {
+  id: string;
+  event: FormEvent;
+  title: string;
+  isPrivate: boolean;
+}
+
+export interface ITargetToggleComplete {
+  id: string;
+  isCompleted: boolean;
 }
