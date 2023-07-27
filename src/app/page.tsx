@@ -29,39 +29,44 @@ const Home = () => {
     });
   }, []);
 
+  {/* <main className="flex min-h-screen flex-col items-center justify-between p-24"> */}
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      {
-        username == "Acessar"
-        ? (
-          <>
-            <a className='bg-gradient-to-r from-blue-400 to-green-600' href="/acessar">Acessar</a>
-            <br />
-            <br />
-            <a className='bg-gradient-to-r from-blue-400 to-green-600' href="/cadastrar">Cadastrar</a>
-          </>
-        )
-        : <a className='bg-gradient-to-r from-blue-400 to-green-600' href={`/${username.toLowerCase()}`}>{username}</a>
-      }
-      <br />
-      <br />
-      <br />
-      <button onClick={handleSignOut}>Sair/Deslogar/Desconectar/Abandonar/Sair da conta/Deixar conta</button>
-      <br />
-      <br />
-      <br />
-      <ul>
-        {listTargets.map((target) => {
-          return (
-            <li key={`${target.id}`}>
-              {target.title} | 
-              <a href={`/${target.user.username}`}>{target.user.username}</a>
-            </li>
+    <div className="grid grid-areas-layout grid-cols-layout grid-rows-layout h-screen">
+      <header className='grid-in-header bg-purple-400 flex justify-center items-center'>
+        <img src="/logo2.svg" alt='alvo logo' className='h-3/4'/>
+        <h1>ALVO</h1>
+      </header>
+      <nav className='grid-in-nav bg-blue-400'>
+        {
+          username == "Acessar"
+          ? (
+            <div className="h-full flex justify-center items-center flex-col">
+              <a className='h-[2rem] w-1/2 bg-zinc-50 text-center' href="/acessar">Acessar</a>
+              <a className='h-[2rem] w-1/2 bg-zinc-50 text-center mt-1' href="/cadastrar">Cadastrar</a>
+            </div>
           )
-        })}
-        <li></li>
-      </ul>
-    </main>
+          : (
+            <div className="h-full flex justify-center items-center flex-col">
+              <a className='h-[2rem] w-1/2 bg-zinc-50 text-center' href={`/${username.toLowerCase()}`}>{username}</a>
+              <button className='h-[2rem] w-1/2 bg-zinc-50 mt-1' onClick={handleSignOut}>Sair</button>
+            </div>
+          )
+        }
+      </nav>
+      <main className='grid-in-main bg-yellow-300'>
+        <ul className='h-full w-full p-10'>
+          {listTargets.map((target) => {
+            return (
+              <li key={`${target.id}`} className='bg-slate-300 hover:bg-slate-400 shadow-lg my-1 p-2 rounded-md border-2 border-gray-500'>
+                {target.title} | 
+                <a href={`/${target.user.username}`} className='text-blue-700'> {target.user.username}</a>
+              </li>
+            )
+          })}
+          <li></li>
+        </ul>
+      </main>
+    </div>
   )
 }
 
