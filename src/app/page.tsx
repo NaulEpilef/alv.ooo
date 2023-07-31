@@ -24,7 +24,9 @@ const Home = () => {
     getUsername();
     api.get("/target/listAll").then(res => {
       setListTargets(res.data);
+      console.log("then");
     }).catch(err => {
+      console.error("catch");
       console.error(err);
     });
   }, []);
@@ -63,7 +65,6 @@ const Home = () => {
               </li>
             )
           })}
-          <li></li>
         </ul>
       </main>
     </div>

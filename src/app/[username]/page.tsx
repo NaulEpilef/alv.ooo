@@ -21,6 +21,7 @@ const Profile = ({ params }: { params: { username: string } }) => {
     };
     api.get(`/target/${params.username}`, { headers }).then((data) => {
       setUserTargets(data.data);
+      console.log(data);
     }).catch((err) => {
       console.error(err);
     });
@@ -61,6 +62,7 @@ const Profile = ({ params }: { params: { username: string } }) => {
       listAllTargets();
       setTitle("");
       setIsPrivate(false);
+      console.log(data);
     }).catch((err) => {
       console.error(err);
     });
